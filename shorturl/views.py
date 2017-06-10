@@ -5,12 +5,14 @@ from django.contrib.auth.models import User
 from shorturl.models import ShortcutURL
 from shorturl.serializers import ShortcutUrlSerializer, UserSerializer, ShortcutUrlRetrieveSerializer
 from django.core.exceptions import ObjectDoesNotExist
+from shorturl.permissions import IsOwner
 
 # This ViewSet provides 'list' and 'detail' action
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    #TODO Add permission
+
+
 
 class ShortcutUrlsViewSet(viewsets.ModelViewSet):
     queryset = ShortcutURL.objects.all()
@@ -20,7 +22,8 @@ class ShortcutUrlsViewSet(viewsets.ModelViewSet):
             return ShortcutUrlRetrieveSerializer
         else:
             return ShortcutUrlSerializer
-    #TODO Add permission
+
+    permission_classes = [IsOwner, ]
 
     def perform_create(self, serializer):
         if self.request.user.is_authenticated:
@@ -28,6 +31,7 @@ class ShortcutUrlsViewSet(viewsets.ModelViewSet):
         else:
             serializer.save()
 
+# Perform the redirection given a shortcut
 def redirection(request, **arguments):
     try:
         shortcut = ShortcutURL.objects.get(shortcut=arguments['shortcut'])

@@ -6,5 +6,5 @@ class ShortcutURL(models.Model):
     shortcut = models.CharField(max_length=7, primary_key=True)
     title = models.CharField(max_length=40, blank=True)
     url = models.URLField()
-    owner = models.ForeignKey(User, related_name='urls', on_delete=models.CASCADE, blank=True)
-    numberClick = models.IntegerField(blank=True)
+    owner = models.ForeignKey(User, related_name='urls', on_delete=models.CASCADE, null=True)
+    numberClick = models.IntegerField(null=True)

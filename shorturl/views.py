@@ -3,7 +3,7 @@ from django.http import Http404
 from rest_framework import viewsets
 from django.contrib.auth.models import User
 from shorturl.models import ShortcutURL
-from shorturl.serializers import ShortcutUrlSerializer, UserSerializer
+from shorturl.serializers import ShortcutUrlSerializer, UserSerializer, ShortcutUrlRetrieveSerializer
 from django.core.exceptions import ObjectDoesNotExist
 
 # This ViewSet provides 'list' and 'detail' action
@@ -14,7 +14,12 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class ShortcutUrlsViewSet(viewsets.ModelViewSet):
     queryset = ShortcutURL.objects.all()
-    serializer_class = ShortcutUrlSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            return ShortcutUrlRetrieveSerializer
+        else:
+            return ShortcutUrlSerializer
     #TODO Add permission
 
     def perform_create(self, serializer):

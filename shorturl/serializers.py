@@ -5,11 +5,19 @@ from django.core.validators import RegexValidator
 import string
 import random
 
-class ShortcutUrlSerializer(serializers.ModelSerializer):
+class ShortcutUrlRetrieveSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     shortcut = serializers.CharField(max_length=7, required=False, validators=[
         RegexValidator(regex=r'^\w{7}$', message='Shortcut must contain 7 digits or letters')])
     numberClick = serializers.ReadOnlyField()
+
+    class Meta:
+        model = ShortcutURL
+        fields = ('shortcut', 'url', 'title', 'owner', 'numberClick')
+
+class ShortcutUrlSerializer(serializers.ModelSerializer):
+    shortcut = serializers.CharField(max_length=7, required=False, validators=[
+        RegexValidator(regex=r'^\w{7}$', message='Shortcut must contain 7 digits or letters')])
 
     def create(self, validated_data):
         if not 'shortcut' in validated_data:
@@ -21,7 +29,7 @@ class ShortcutUrlSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ShortcutURL
-        fields = ('shortcut', 'url', 'title', 'owner', 'numberClick')
+        fields = ('shortcut', 'url', 'title')    
 
 
 class UserSerializer(serializers.ModelSerializer):

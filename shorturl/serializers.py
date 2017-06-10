@@ -25,7 +25,7 @@ class ShortcutUrlSerializer(serializers.ModelSerializer):
             while ShortcutURL.objects.filter(shortcut=shortcut):
                 shortcut = ''.join(random.choices(string.ascii_letters, k=7))
             validated_data['shortcut'] = shortcut
-        return ShortcutURL(**validated_data)
+        return ShortcutURL.objects.create(**validated_data)
 
     class Meta:
         model = ShortcutURL

@@ -1,6 +1,7 @@
 from django.conf.urls import url, include
 from shorturl import views
 from rest_framework.routers import DefaultRouter
+from rest_framework_jwt.views import obtain_jwt_token
 
 # Route for the REST API
 router = DefaultRouter()
@@ -12,5 +13,7 @@ urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls')),
 # Redirection route
-	url(r'^(?P<shortcut>\w{7})', views.redirection)
+	url(r'^(?P<shortcut>\w{7})', views.redirection),
+# Route to obtain JWT Token
+	url(r'^api/authenticate/$', obtain_jwt_token)
 ]

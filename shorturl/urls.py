@@ -20,5 +20,6 @@ urlpatterns = [
 # Web interface
 	url(r'^$', views.base),
 	url(r'^template/sign-form$', views.signFormTemplate, name='sign-form'),
-	url(r'^template/index$', views.indexTemplate, name='index')
+	url(r'^template/index$', views.indexTemplate, name='index'),
+	url(r'^template/shortcut/(?P<shortcut>\w{7})$', views.displayShortcutTemplate, name='display-shortcut')
 ]

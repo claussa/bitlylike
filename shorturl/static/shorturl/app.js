@@ -1,5 +1,3 @@
-let scope = {shortcut: [], token: "", alert: true}
-
 $(() => {
 	$('.navbutton').click((event) => {
 		event.preventDefault();

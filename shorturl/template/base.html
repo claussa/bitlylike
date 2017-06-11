@@ -37,4 +37,14 @@
   </div>
 
 </body>
+
+<script type="text/javascript">
+  let scope = {token: "", alert: true, addShortcut: (shortcut) => {
+    url = "{% url 'display-shortcut' 'aaaaaaa' %}"
+    url = url.replace('aaaaaaa', shortcut.shortcut)
+    $.get(url, (data) => {
+      $("#content").html(data)
+    })
+  }}
+</script>
 </html>

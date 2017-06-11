@@ -19,21 +19,22 @@
 			if(scope.alert) {
 				alert('You can sign in/up to have statistics of your shortcut.');
 				scope.alert = false;
-			}
-			$.ajax({
-				type: "POST",
-				url: "{% url 'shortcuturl-list' %}",
-				data: {url: $('input[name=url]').val()},
-				success: (data, status) => {
-					$('input[name=url]').val('');
-					$('input[name=url]').attr('placeholder', '')
-					scope.shortcut.push(data);
-					},
-				error: (error) => {
-					$('input[name=url]').val("");
-					$('input[name=url]').attr('placeholder', error.responseJSON.url)
-				}
+			} else {
+				$.ajax({
+					type: "POST",
+					url: "{% url 'shortcuturl-list' %}",
+					data: {url: $('input[name=url]').val()},
+					success: (data, status) => {
+						$('input[name=url]').val('');
+						$('input[name=url]').attr('placeholder', '')
+						scope.addShortcut(data);
+						},
+					error: (error) => {
+						$('input[name=url]').val("");
+						$('input[name=url]').attr('placeholder', error.responseJSON.url)
+					}
 				});
+			}
 		} else {
 			$('input[name=url]').attr('placeholder', 'This field is required !')
 		}

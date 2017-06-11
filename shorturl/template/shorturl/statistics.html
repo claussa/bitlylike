@@ -1,0 +1,39 @@
+<br><br>
+
+<h1>Your shortcut</h1>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Shortcut</th>
+			<th>Title</th>
+			<th>Url</th>
+			<th>Number of clicks</th>
+		</tr>
+	</thead>
+	<tbody id="shortcutTable">
+	</tbody>
+</table>
+
+<script type="text/javascript">
+	url = "{% url 'user-detail' 0 %}"
+	url = url.replace('0', scope.user_id)
+	$.ajax({
+		url: url, 
+		success : (data) => {
+		data.urls.forEach((url) => {
+			$.ajax({url: url,
+				success: (data) => {
+				entry = "<tr><td>"+data.shortcut+"</td><td>"+data.title+"</td><td>"+data.url+"</td><td>"+data.numberClick+"</td></tr>"
+				$("#shortcutTable").append(entry)
+				},
+				headers: {
+					Authorization: 'JWT '+scope.token
+				}
+			})
+		})},
+		headers: {
+			Authorization: 'JWT '+scope.token
+		}
+	})
+</script>

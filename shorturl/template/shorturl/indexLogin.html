@@ -37,6 +37,9 @@
 				type: "POST",
 				url: "{% url 'shortcuturl-list' %}",
 				data: {url: $('input[name=url]').val(), title: $('input[name=title]').val(), shortcut: $('input[name=shortcut]').val()},
+				headers: {
+					Authorization: 'JWT '+scope.token
+				},
 				success: (data, status) => {
 					$('input[name=url]').val('');
 					$('input[name=url]').attr('placeholder', '')

@@ -70,3 +70,6 @@ def signFormTemplate(request):
 def displayShortcutTemplate(request):
     return render(request, "shorturl/displayShortcut.html")
 
+def statisticsTemplate(request):
+    return render(request, "shorturl/statistics.html")
+

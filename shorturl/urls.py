@@ -23,4 +23,5 @@ urlpatterns = [
 	url(r'^template/index$', views.indexTemplate, name='index'),
 	url(r'^template/shortcut$', views.displayShortcutTemplate, name='display-shortcut'),
 	url(r'^template/indexLogin$', views.indexLoginTemplate, name='index-login'),
+	url(r'^template/statistics$', views.statisticsTemplate, name='statistics')
 ]

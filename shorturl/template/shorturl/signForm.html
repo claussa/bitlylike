@@ -1,0 +1,65 @@
+<ul class="nav nav-tabs nav-justified" id="choice">
+	<li class="active signIn">
+		<a  href="#" data-toggle="tab">Sign In</a>
+	</li>
+	<li class="signUp">
+		<a  href="#" data-toggle="tab">Sign Up</a>
+	</li>
+</ul>
+
+<br><br>
+<div class="tab-content">
+	<div class="tab-pane signIn active">
+		<div class="form-group row">
+			<div class="col-sm-2">Username :</div>
+			<div class="col-sm-4">
+				<input type="text" name="username" class="form-control">
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-sm-2">Password :</div>
+			<div class="col-sm-4">
+				<input type="password" name="password" class="form-control">
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-3">
+				<input type="submit" class="btn btn-default btn-block login" value="Login">
+			</div>
+		</div>
+	</div>
+	<div class="tab-pane signUp" >
+		<div class="form-group row">
+			<div class="col-sm-2">Username :</div>
+			<div class="col-sm-4">
+				<input type="text" name="username" class="form-control">
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-sm-2">Password :</div>
+			<div class="col-sm-4">
+				<input type="password" name="password" class="form-control">
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-3">
+				<input type="submit" class="btn btn-default btn-block sign" value="Sign Up">
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(".signIn").click(() =>{
+		$(".signIn").addClass("active");
+		$(".signUp").removeClass("active");
+	});
+
+	$(".signUp").click(() =>{
+		$(".signUp").addClass("active");
+		$(".signIn").removeClass("active");
+	});
+</script>
+

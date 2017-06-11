@@ -47,10 +47,20 @@ def redirection(request, **arguments):
     try:
         shortcut = ShortcutURL.objects.get(shortcut=arguments['shortcut'])
     except ObjectDoesNotExist:
-        return Http404("Redirection does not exist")
+        raise Http404("Redirection does not exist")
     else:
         print(shortcut.numberClick)
         if shortcut.numberClick is not None:
             shortcut.numberClick += 1
             shortcut.save()
         return redirect(shortcut.url)
+
+
+def base(request):
+    return render(request, "base.html")
+
+def indexTemplate(request):
+    return render(request, "shorturl/index.html")
+
+def signFormTemplate(request):
+    return render(request, "shorturl/signForm.html")

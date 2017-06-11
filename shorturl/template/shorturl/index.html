@@ -1,0 +1,41 @@
+<br><br>
+<div class="container">
+	<div class="form-group row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-2">Enter the url :</div>
+		<div class="col-sm-4">
+			<input type="url" name="url" class="form-control">
+		</div>
+		<div class="col-sm-2">
+			<input type="submit" class="btn btn-default btn-block submit" value="Shorten">
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$('.submit').click((event) => {
+		event.preventDefault();
+		if($('input[name=url]').val()) {
+			if(scope.alert) {
+				alert('You can sign in/up to have statistics of your shortcut.');
+				scope.alert = false;
+			}
+			$.ajax({
+				type: "POST",
+				url: "{% url 'shortcuturl-list' %}",
+				data: {url: $('input[name=url]').val()},
+				success: (data, status) => {
+					$('input[name=url]').val('');
+					$('input[name=url]').attr('placeholder', '')
+					scope.shortcut.push(data);
+					},
+				error: (error) => {
+					$('input[name=url]').val("");
+					$('input[name=url]').attr('placeholder', error.responseJSON.url)
+				}
+				});
+		} else {
+			$('input[name=url]').attr('placeholder', 'This field is required !')
+		}
+	});
+</script>

@@ -57,7 +57,7 @@ ROOT_URLCONF = 'bitlylike.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'shorturl', 'template')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

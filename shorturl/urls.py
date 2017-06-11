@@ -13,8 +13,12 @@ urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls')),
 # Redirection route
-	url(r'^(?P<shortcut>\w{7})', views.redirection),
+	url(r'^(?P<shortcut>\w{7})$', views.redirection),
 # Route to obtain JWT Token
 	url(r'^api/authenticate/$', obtain_jwt_token),
-	url(r'^api/authenticate/renew/$', refresh_jwt_token)
+	url(r'^api/authenticate/renew/$', refresh_jwt_token),
+# Web interface
+	url(r'^$', views.base),
+	url(r'^template/sign-form$', views.signFormTemplate, name='sign-form'),
+	url(r'^template/index$', views.indexTemplate, name='index')
 ]

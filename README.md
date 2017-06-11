@@ -22,3 +22,7 @@ python3 manage.py createsuperuser
 ```
 
 Then open your browser and go to <http://localhost:8000/>. 
+
+## Documentation
+
+After launching the server, you will find documentation on the API to <http://localhost:8000/docs>

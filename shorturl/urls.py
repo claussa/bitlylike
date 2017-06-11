@@ -15,11 +15,11 @@ urlpatterns = [
 # Redirection route
 	url(r'^(?P<shortcut>\w{7})$', views.redirection),
 # Route to obtain JWT Token
-	url(r'^api/authenticate/$', obtain_jwt_token),
-	url(r'^api/authenticate/renew/$', refresh_jwt_token),
+	url(r'^api/authenticate/$', obtain_jwt_token, name='obtain-token'),
+	url(r'^api/authenticate/renew/$', refresh_jwt_token, name='renew-token'),
 # Web interface
 	url(r'^$', views.base),
 	url(r'^template/sign-form$', views.signFormTemplate, name='sign-form'),
 	url(r'^template/index$', views.indexTemplate, name='index'),
-	url(r'^template/shortcut/(?P<shortcut>\w{7})$', views.displayShortcutTemplate, name='display-shortcut')
+	url(r'^template/shortcut$', views.displayShortcutTemplate, name='display-shortcut')
 ]

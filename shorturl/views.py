@@ -64,11 +64,6 @@ def indexTemplate(request):
 def signFormTemplate(request):
     return render(request, "shorturl/signForm.html")
 
-def displayShortcutTemplate(request, **arguments):
-    try:
-        shortcut = ShortcutURL.objects.get(shortcut=arguments['shortcut'])
-    except ObjectDoesNotExist:
-        raise Http404("Shortcut does not exist")
-    else:
-        return render(request, "shorturl/displayShortcut.html", {'shortcut': shortcut})
+def displayShortcutTemplate(request):
+    return render(request, "shorturl/displayShortcut.html")
 

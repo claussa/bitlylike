@@ -10,16 +10,17 @@
 <br><br>
 <div class="tab-content">
 	<div class="tab-pane signIn active">
+		<div id="info" class="alert alert-danger" style="display: none"></div>
 		<div class="form-group row">
 			<div class="col-sm-2">Username :</div>
 			<div class="col-sm-4">
-				<input type="text" name="username" class="form-control">
+				<input type="text" name="username-login" class="form-control">
 			</div>
 		</div>
 		<div class="form-group row">
 			<div class="col-sm-2">Password :</div>
 			<div class="col-sm-4">
-				<input type="password" name="password" class="form-control">
+				<input type="password" name="password-login" class="form-control">
 			</div>
 		</div>
 		<div class="form-group row">
@@ -30,16 +31,18 @@
 		</div>
 	</div>
 	<div class="tab-pane signUp" >
+		<div id="alert" class="alert alert-danger" style="display: none;"></div>
+		<div id="success" class="alert alert-success" style="display: none;"></div>
 		<div class="form-group row">
 			<div class="col-sm-2">Username :</div>
 			<div class="col-sm-4">
-				<input type="text" name="username" class="form-control">
+				<input type="text" name="username-sign" class="form-control">
 			</div>
 		</div>
 		<div class="form-group row">
 			<div class="col-sm-2">Password :</div>
 			<div class="col-sm-4">
-				<input type="password" name="password" class="form-control">
+				<input type="password" name="password-sign" class="form-control">
 			</div>
 		</div>
 		<div class="form-group row">
@@ -60,6 +63,49 @@
 	$(".signUp").click(() =>{
 		$(".signUp").addClass("active");
 		$(".signIn").removeClass("active");
+	});
+
+	$('.login').click((event) => {
+		event.preventDefault();
+		if($('input[name=username-login]').val() && $('input[name=password-login]').val()) {
+			$.ajax({
+				type: "POST",
+				url: "{% url 'obtain-token' %}",
+				data: {username: $('input[name=username-login]').val(), password: $('input[name=password-login]').val()},
+				success: (data, status) => {
+					scope.addToken(data.token)
+					},
+				error: (error) => {
+					$('#info').html(error.responseJSON.non_field_errors)
+					$('#info').show().delay(5000).fadeOut()
+				}
+			});
+		} else {
+			$('input[name=username-login]').attr('placeholder', 'This field is required !')
+			$('input[name=password-login]').attr('placeholder', 'This field is required !')
+		}
+	});
+
+	$('.sign').click((event) => {
+		event.preventDefault();
+		if($('input[name=username-sign]').val() && $('input[name=password-sign]').val()) {
+			$.ajax({
+				type: "POST",
+				url: "{% url 'user-list' %}",
+				data: {username: $('input[name=username-sign]').val(), password: $('input[name=password-sign]').val()},
+				success: (data, status) => {
+					$('#success').html("Successfull sign up. You can now sign in !")
+					$('#success').show()
+					},
+				error: (error) => {
+					$('#alert').html(error.responseJSON.non_field_errors)
+					$('#alert').show().delay(5000).fadeOut()
+				}
+			});
+		} else {
+			$('input[name=username-sign]').attr('placeholder', 'This field is required !')
+			$('input[name=password-sign]').attr('placeholder', 'This field is required !')
+		}
 	});
 </script>
 

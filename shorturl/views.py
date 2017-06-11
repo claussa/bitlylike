@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from shorturl.models import ShortcutURL
 from shorturl.serializers import ShortcutUrlSerializer, UserSerializer, ShortcutUrlRetrieveSerializer
 from django.core.exceptions import ObjectDoesNotExist
-from shorturl.permissions import IsOwner
+from shorturl.permissions import IsOwner, UserPermission
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -14,6 +14,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [UserPermission]
 
 
 class ShortcutUrlsViewSet(viewsets.ModelViewSet):

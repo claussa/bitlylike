@@ -28,7 +28,7 @@
             <li><a></a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right log" style="display: none;">
-            <li><a href="#" class="navbutton profil username"></a></li>
+            <li><a href="#" class="username"></a></li>
             <li><a></a></li>
           </ul>
         </div>
@@ -50,6 +50,8 @@
     $('.unlog').hide()
     $('.username').text(scope.username)
     $('.log').show()
+    $('#start').data('url', "{% url 'index-login' %}")
+    $('#start').click()
   },
   addShortcut: (shortcut) => {
     url = "{% url 'display-shortcut' %}"

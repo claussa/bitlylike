@@ -1,0 +1,58 @@
+<br><br>
+<h1 style="text-align: center;">Create a new shortcut :</h1>
+<br><br>
+<div class="form-group row">
+	<div class="col-sm-1"></div>
+	<div class="col-sm-4">Shortcut (7 letters or digits):</div>
+	<div class="col-sm-4">
+		<input type="text" name="shortcut" class="form-control" placeholder="Optionnal">
+	</div>
+</div>
+<div class="form-group row">
+	<div class="col-sm-1"></div>
+	<div class="col-sm-4">Title :</div>
+	<div class="col-sm-4">
+		<input type="text" name="title" class="form-control" placeholder="Optionnal">
+	</div>
+</div>
+<div class="form-group row">
+	<div class="col-sm-1"></div>
+	<div class="col-sm-4">Url :</div>
+	<div class="col-sm-4">
+		<input type="url" name="url" class="form-control">
+	</div>
+</div>
+<div class="form-group row">
+	<div class="col-sm-6"></div>
+	<div class="col-sm-3">
+		<input type="submit" class="btn btn-default btn-block submit" value="Shorten">
+	</div>
+</div>
+
+<script type="text/javascript">
+	$('.submit').click((event) => {
+		event.preventDefault();
+		if($('input[name=url]').val()) {
+			$.ajax({
+				type: "POST",
+				url: "{% url 'shortcuturl-list' %}",
+				data: {url: $('input[name=url]').val(), title: $('input[name=title]').val(), shortcut: $('input[name=shortcut]').val()},
+				success: (data, status) => {
+					$('input[name=url]').val('');
+					$('input[name=url]').attr('placeholder', '')
+					scope.addShortcut(data);
+					},
+				error: (error) => {
+					$('input[name=url]').val("");
+					$('input[name=title]').val("");
+					$('input[name=shortcut]').val("");
+					$('input[name=url]').attr('placeholder', error.responseJSON.url)
+					$('input[name=title]').attr('placeholder', error.responseJSON.title)
+					$('input[name=shortcut]').attr('placeholder', error.responseJSON.shortcut)
+				}
+			});
+		} else {
+			$('input[name=url]').attr('placeholder', 'This field is required !')
+		}
+	});
+</script>

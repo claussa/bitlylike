@@ -61,6 +61,9 @@ def base(request):
 def indexTemplate(request):
     return render(request, "shorturl/index.html")
 
+def indexLoginTemplate(request):
+    return render(request, "shorturl/indexLogin.html")
+
 def signFormTemplate(request):
     return render(request, "shorturl/signForm.html")
 

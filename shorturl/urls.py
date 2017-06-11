@@ -21,5 +21,6 @@ urlpatterns = [
 	url(r'^$', views.base),
 	url(r'^template/sign-form$', views.signFormTemplate, name='sign-form'),
 	url(r'^template/index$', views.indexTemplate, name='index'),
-	url(r'^template/shortcut$', views.displayShortcutTemplate, name='display-shortcut')
+	url(r'^template/shortcut$', views.displayShortcutTemplate, name='display-shortcut'),
+	url(r'^template/indexLogin$', views.indexLoginTemplate, name='index-login'),
 ]

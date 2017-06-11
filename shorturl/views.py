@@ -26,7 +26,7 @@ class ShortcutUrlsViewSet(viewsets.ModelViewSet):
     # Set a different serializer for the 'retrieve' action allowing to see statistics
     def get_serializer_class(self):
         print(self.action)
-        if self.action == 'retrieve' or self.action == 'update':
+        if self.action == 'retrieve' or self.action == 'update' or self.action == 'partial_update':
             return ShortcutUrlRetrieveSerializer
         else:
             return ShortcutUrlSerializer

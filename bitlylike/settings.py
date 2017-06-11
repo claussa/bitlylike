@@ -102,12 +102,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Set the authentification with Json Web Token
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
 }
 
+"""
+JWT option:
+    Set the expiration time to one hour
+    Allow user to refresh his token, while the token is not expired
+"""
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
     'JWT_ALLOW_REFRESH': True,

@@ -6,19 +6,30 @@ import string
 import random
 
 class ShortcutUrlRetrieveSerializer(serializers.ModelSerializer):
+    """
+    Serializer to 'retrieve' and 'update' shortcut
+        Allow to see statistics, the owner
+        Allow to only update the title of the shortcut
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
-    shortcut = serializers.CharField(max_length=7, required=False, validators=[
-        RegexValidator(regex=r'^\w{7}$', message='Shortcut must contain 7 digits or letters')])
+    shortcut = serializers.ReadOnlyField()
     numberClick = serializers.ReadOnlyField()
+    url = serializers.ReadOnlyField()
 
     class Meta:
         model = ShortcutURL
         fields = ('shortcut', 'url', 'title', 'owner', 'numberClick')
 
 class ShortcutUrlSerializer(serializers.ModelSerializer):
+    """
+    Serializer to 'list', 'create' and 'delete' shortcut
+        Allow to see the shortcut, url and title only
+        Validate the form of the shortcut (7 letters or digits)
+    """
     shortcut = serializers.CharField(max_length=7, required=False, validators=[
         RegexValidator(regex=r'^\w{7}$', message='Shortcut must contain 7 digits or letters')])
 
+    # Verify if the shortcut is set, if not set a random shortcut
     def create(self, validated_data):
         if not 'shortcut' in validated_data:
             shortcut = ''.join(random.choices(string.ascii_letters+string.digits, k=7))
@@ -33,9 +44,15 @@ class ShortcutUrlSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the user model
+        Allow to see all the shortcut of associate to a user
+        Allow to create new user
+    """
     urls = serializers.HyperlinkedRelatedField(many=True, view_name='shortcuturl-detail', read_only=True)
     password = serializers.CharField(write_only=True)
 
+    # Hash the password to create a new user
     def create(self, validated_data):
         user = User.objects.create(username=validated_data['username'])
         user.set_password(validated_data['password'])

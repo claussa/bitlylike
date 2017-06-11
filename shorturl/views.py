@@ -16,14 +16,13 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class ShortcutUrlsViewSet(viewsets.ModelViewSet):
     queryset = ShortcutURL.objects.all()
+    permission_classes = [IsOwner]
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
             return ShortcutUrlRetrieveSerializer
         else:
             return ShortcutUrlSerializer
-
-    permission_classes = [IsOwner, ]
 
     def perform_create(self, serializer):
         if self.request.user.is_authenticated:

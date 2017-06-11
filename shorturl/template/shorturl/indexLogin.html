@@ -46,6 +46,9 @@
 					scope.addShortcut(data);
 					},
 				error: (error) => {
+					if(error.detail && error.detail == 'Signature has expired') {
+						scope.unlog()
+					}
 					$('input[name=url]').val("");
 					$('input[name=title]').val("");
 					$('input[name=shortcut]').val("");

@@ -64,6 +64,16 @@
       $("#content").html(data)
     })
   },
+  unlog: () => {
+    scope.token = undefined
+    scope.username = undefined
+    scope.user_id = undefined
+    $('.log').hide()
+    $('.unlog').show()
+    $('#start').data('url', "{% url 'index' %}")
+    alert("Your session has expired. You can login again.")
+    $('#start').click()
+  },
   alert: true}
 </script>
 </html>

@@ -21,19 +21,29 @@
 	$.ajax({
 		url: url, 
 		success : (data) => {
-		data.urls.forEach((url) => {
-			$.ajax({url: url,
-				success: (data) => {
-				entry = "<tr><td>"+data.shortcut+"</td><td>"+data.title+"</td><td>"+data.url+"</td><td>"+data.numberClick+"</td></tr>"
-				$("#shortcutTable").append(entry)
-				},
-				headers: {
-					Authorization: 'JWT '+scope.token
-				}
+			data.urls.forEach((url) => {
+				$.ajax({url: url,
+					success: (data) => {
+					entry = "<tr><td>"+data.shortcut+"</td><td>"+data.title+"</td><td>"+data.url+"</td><td>"+data.numberClick+"</td></tr>"
+					$("#shortcutTable").append(entry)
+					},
+					headers: {
+						Authorization: 'JWT '+scope.token
+					},
+					error: (error) => {
+						if(error.detail && error.detail == 'Signature has expired') {
+							scope.unlog()
+						}
+					}
 			})
 		})},
 		headers: {
 			Authorization: 'JWT '+scope.token
+		},
+		error: (error) => {
+			if(error.detail && error.detail == 'Signature has expired') {
+				scope.unlog()
+			}
 		}
 	})
 </script>

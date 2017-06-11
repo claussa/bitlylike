@@ -24,7 +24,7 @@
 			data.urls.forEach((url) => {
 				$.ajax({url: url,
 					success: (data) => {
-					entry = "<tr><td>"+data.shortcut+"</td><td>"+data.title+"</td><td>"+data.url+"</td><td>"+data.numberClick+"</td></tr>"
+					entry = "<tr><td><a href='"+data.shortcut+"'>"+data.shortcut+"</a></td><td>"+data.title+"</td><td><a href='"+data.url+"'>"+data.url+"</a></td><td>"+data.numberClick+"</td></tr>"
 					$("#shortcutTable").append(entry)
 					},
 					headers: {

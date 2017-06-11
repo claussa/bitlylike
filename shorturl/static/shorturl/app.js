@@ -9,4 +9,8 @@ $(() => {
 		});
 	});
 	$('#start').click();
+	
+	$(window).on("beforeunload", () => {
+		return "Do you really want to quit ?";
+	});
 });

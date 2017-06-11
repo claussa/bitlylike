@@ -2,6 +2,7 @@ from rest_framework import serializers
 from shorturl.models import ShortcutURL
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
+from rest_framework.validators import UniqueValidator
 import string
 import random
 
@@ -27,7 +28,9 @@ class ShortcutUrlSerializer(serializers.ModelSerializer):
         Validate the form of the shortcut (7 letters or digits)
     """
     shortcut = serializers.CharField(max_length=7, required=False, validators=[
-        RegexValidator(regex=r'^\w{7}$', message='Shortcut must contain 7 digits or letters')])
+        RegexValidator(regex=r'^\w{7}$', message='Shortcut must contain 7 digits or letters'),
+        UniqueValidator(queryset=ShortcutURL.objects.all(),
+            message="This shortcut is already used. Choose an another shortcut or leave blank to obtain a random shortcut.")])
 
     # Verify if the shortcut is set, if not set a random shortcut
     def create(self, validated_data):
